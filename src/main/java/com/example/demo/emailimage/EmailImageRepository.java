@@ -29,7 +29,7 @@ public class EmailImageRepository {
         (rs, rowNum) ->
             new EmailImage(
                 UUID.fromString(rs.getString("id")),
-                rs.getString("filename"),
+                rs.getString("nom_fichier"),
                 rs.getString("email"),
                 rs.getTimestamp("created_at").toInstant()));
   }
