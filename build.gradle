@@ -5,15 +5,22 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.3'
+
     id 'org.openapi.generator' version '7.7.0'
+
     id 'jacoco'
+
+    
 }
 
 jacoco {
     toolVersion = "0.8.11"
 }
 
+
+
 repositories {
+
     mavenCentral()
 }
 
@@ -28,6 +35,9 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+
+
+
 
 test {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
@@ -61,6 +71,8 @@ jacocoTestReport {
         html.required = true
     }
     afterEvaluate {
+        // Need to be duplicated like this from jacocoTestCoverageVerification,
+        // else display coverageRate is inconsistent with what was computed during coverage...
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     "**/gen/**"
@@ -136,6 +148,8 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter:2.0.2'
     testImplementation 'org.junit-pioneer:junit-pioneer:2.2.0'
 
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.2'
-    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+
+
+
+
 }
